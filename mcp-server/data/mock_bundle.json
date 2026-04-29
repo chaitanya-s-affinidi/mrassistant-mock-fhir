@@ -1,0 +1,563 @@
+{
+  "resourceType": "Bundle",
+  "type": "transaction",
+  "entry": [
+    {
+      "fullUrl": "urn:uuid:patient-001",
+      "resource": {
+        "resourceType": "Patient",
+        "id": "patient-001",
+        "name": [
+          {
+            "use": "official",
+            "family": "Lopez",
+            "given": ["Camila"]
+          }
+        ],
+        "birthDate": "1985-03-15",
+        "gender": "female",
+        "telecom": [
+          {
+            "system": "phone",
+            "value": "+6591234567",
+            "use": "mobile"
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Patient/patient-001"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:patient-002",
+      "resource": {
+        "resourceType": "Patient",
+        "id": "patient-002",
+        "name": [
+          {
+            "use": "official",
+            "family": "Chen",
+            "given": ["James"]
+          }
+        ],
+        "birthDate": "1972-08-22",
+        "gender": "male",
+        "telecom": [
+          {
+            "system": "phone",
+            "value": "+6592345678",
+            "use": "mobile"
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Patient/patient-002"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:patient-003",
+      "resource": {
+        "resourceType": "Patient",
+        "id": "patient-003",
+        "name": [
+          {
+            "use": "official",
+            "family": "Santos",
+            "given": ["Maria"]
+          }
+        ],
+        "birthDate": "1990-11-30",
+        "gender": "female",
+        "telecom": [
+          {
+            "system": "phone",
+            "value": "+6593456789",
+            "use": "mobile"
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Patient/patient-003"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:patient-004",
+      "resource": {
+        "resourceType": "Patient",
+        "id": "patient-004",
+        "name": [
+          {
+            "use": "official",
+            "family": "Williams",
+            "given": ["Robert"]
+          }
+        ],
+        "birthDate": "1968-04-05",
+        "gender": "male",
+        "telecom": [
+          {
+            "system": "phone",
+            "value": "+6594567890",
+            "use": "mobile"
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Patient/patient-004"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:patient-005",
+      "resource": {
+        "resourceType": "Patient",
+        "id": "patient-005",
+        "name": [
+          {
+            "use": "official",
+            "family": "Johnson",
+            "given": ["Sarah"]
+          }
+        ],
+        "birthDate": "2001-07-19",
+        "gender": "female",
+        "telecom": [
+          {
+            "system": "phone",
+            "value": "+6595678901",
+            "use": "mobile"
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Patient/patient-005"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:practitioner-001",
+      "resource": {
+        "resourceType": "Practitioner",
+        "id": "practitioner-001",
+        "name": [
+          {
+            "use": "official",
+            "prefix": ["Dr."],
+            "family": "Tan",
+            "given": ["Wei", "Ming"]
+          }
+        ],
+        "gender": "male"
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Practitioner/practitioner-001"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:practitioner-002",
+      "resource": {
+        "resourceType": "Practitioner",
+        "id": "practitioner-002",
+        "name": [
+          {
+            "use": "official",
+            "prefix": ["Dr."],
+            "family": "Lim",
+            "given": ["Mei", "Ling"]
+          }
+        ],
+        "gender": "female"
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Practitioner/practitioner-002"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:practitioner-003",
+      "resource": {
+        "resourceType": "Practitioner",
+        "id": "practitioner-003",
+        "name": [
+          {
+            "use": "official",
+            "prefix": ["Dr."],
+            "family": "Lee",
+            "given": ["Kai", "Wen"]
+          }
+        ],
+        "gender": "male"
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Practitioner/practitioner-003"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:practitioner-role-001",
+      "resource": {
+        "resourceType": "PractitionerRole",
+        "id": "practitioner-role-001",
+        "practitioner": {
+          "reference": "Practitioner/practitioner-001",
+          "display": "Dr. Tan Wei Ming"
+        },
+        "specialty": [
+          {
+            "coding": [
+              {
+                "system": "http://hospital.example.com/specialty",
+                "code": "general-medicine",
+                "display": "General Medicine"
+              }
+            ]
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "PractitionerRole/practitioner-role-001"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:practitioner-role-002",
+      "resource": {
+        "resourceType": "PractitionerRole",
+        "id": "practitioner-role-002",
+        "practitioner": {
+          "reference": "Practitioner/practitioner-002",
+          "display": "Dr. Lim Mei Ling"
+        },
+        "specialty": [
+          {
+            "coding": [
+              {
+                "system": "http://hospital.example.com/specialty",
+                "code": "cardiology",
+                "display": "Cardiology"
+              }
+            ]
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "PractitionerRole/practitioner-role-002"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:practitioner-role-003",
+      "resource": {
+        "resourceType": "PractitionerRole",
+        "id": "practitioner-role-003",
+        "practitioner": {
+          "reference": "Practitioner/practitioner-003",
+          "display": "Dr. Lee Kai Wen"
+        },
+        "specialty": [
+          {
+            "coding": [
+              {
+                "system": "http://hospital.example.com/specialty",
+                "code": "dermatology",
+                "display": "Dermatology"
+              }
+            ]
+          }
+        ]
+      },
+      "request": {
+        "method": "PUT",
+        "url": "PractitionerRole/practitioner-role-003"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:schedule-001",
+      "resource": {
+        "resourceType": "Schedule",
+        "id": "schedule-001",
+        "actor": [
+          {
+            "reference": "Practitioner/practitioner-001",
+            "display": "Dr. Tan Wei Ming"
+          }
+        ],
+        "planningHorizon": {
+          "start": "2026-05-01T00:00:00+08:00",
+          "end": "2026-05-31T23:59:59+08:00"
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Schedule/schedule-001"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:schedule-002",
+      "resource": {
+        "resourceType": "Schedule",
+        "id": "schedule-002",
+        "actor": [
+          {
+            "reference": "Practitioner/practitioner-002",
+            "display": "Dr. Lim Mei Ling"
+          }
+        ],
+        "planningHorizon": {
+          "start": "2026-05-01T00:00:00+08:00",
+          "end": "2026-05-31T23:59:59+08:00"
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Schedule/schedule-002"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:schedule-003",
+      "resource": {
+        "resourceType": "Schedule",
+        "id": "schedule-003",
+        "actor": [
+          {
+            "reference": "Practitioner/practitioner-003",
+            "display": "Dr. Lee Kai Wen"
+          }
+        ],
+        "planningHorizon": {
+          "start": "2026-05-01T00:00:00+08:00",
+          "end": "2026-05-31T23:59:59+08:00"
+        }
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Schedule/schedule-003"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:slot-001",
+      "resource": {
+        "resourceType": "Slot",
+        "id": "slot-001",
+        "schedule": {
+          "reference": "Schedule/schedule-001"
+        },
+        "status": "free",
+        "start": "2026-05-05T09:00:00+08:00",
+        "end": "2026-05-05T09:15:00+08:00"
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Slot/slot-001"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:slot-002",
+      "resource": {
+        "resourceType": "Slot",
+        "id": "slot-002",
+        "schedule": {
+          "reference": "Schedule/schedule-001"
+        },
+        "status": "free",
+        "start": "2026-05-05T09:15:00+08:00",
+        "end": "2026-05-05T09:30:00+08:00"
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Slot/slot-002"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:slot-003",
+      "resource": {
+        "resourceType": "Slot",
+        "id": "slot-003",
+        "schedule": {
+          "reference": "Schedule/schedule-001"
+        },
+        "status": "free",
+        "start": "2026-05-05T10:00:00+08:00",
+        "end": "2026-05-05T10:15:00+08:00"
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Slot/slot-003"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:slot-004",
+      "resource": {
+        "resourceType": "Slot",
+        "id": "slot-004",
+        "schedule": {
+          "reference": "Schedule/schedule-001"
+        },
+        "status": "free",
+        "start": "2026-05-05T14:00:00+08:00",
+        "end": "2026-05-05T14:15:00+08:00"
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Slot/slot-004"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:slot-005",
+      "resource": {
+        "resourceType": "Slot",
+        "id": "slot-005",
+        "schedule": {
+          "reference": "Schedule/schedule-001"
+        },
+        "status": "free",
+        "start": "2026-05-05T14:15:00+08:00",
+        "end": "2026-05-05T14:30:00+08:00"
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Slot/slot-005"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:slot-006",
+      "resource": {
+        "resourceType": "Slot",
+        "id": "slot-006",
+        "schedule": {
+          "reference": "Schedule/schedule-001"
+        },
+        "status": "free",
+        "start": "2026-05-06T09:00:00+08:00",
+        "end": "2026-05-06T09:15:00+08:00"
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Slot/slot-006"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:slot-007",
+      "resource": {
+        "resourceType": "Slot",
+        "id": "slot-007",
+        "schedule": {
+          "reference": "Schedule/schedule-001"
+        },
+        "status": "free",
+        "start": "2026-05-06T10:00:00+08:00",
+        "end": "2026-05-06T10:15:00+08:00"
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Slot/slot-007"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:slot-008",
+      "resource": {
+        "resourceType": "Slot",
+        "id": "slot-008",
+        "schedule": {
+          "reference": "Schedule/schedule-002"
+        },
+        "status": "free",
+        "start": "2026-05-05T09:00:00+08:00",
+        "end": "2026-05-05T09:15:00+08:00"
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Slot/slot-008"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:slot-009",
+      "resource": {
+        "resourceType": "Slot",
+        "id": "slot-009",
+        "schedule": {
+          "reference": "Schedule/schedule-002"
+        },
+        "status": "free",
+        "start": "2026-05-05T10:30:00+08:00",
+        "end": "2026-05-05T10:45:00+08:00"
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Slot/slot-009"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:slot-010",
+      "resource": {
+        "resourceType": "Slot",
+        "id": "slot-010",
+        "schedule": {
+          "reference": "Schedule/schedule-002"
+        },
+        "status": "free",
+        "start": "2026-05-05T15:00:00+08:00",
+        "end": "2026-05-05T15:15:00+08:00"
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Slot/slot-010"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:slot-011",
+      "resource": {
+        "resourceType": "Slot",
+        "id": "slot-011",
+        "schedule": {
+          "reference": "Schedule/schedule-003"
+        },
+        "status": "free",
+        "start": "2026-05-05T11:00:00+08:00",
+        "end": "2026-05-05T11:15:00+08:00"
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Slot/slot-011"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:slot-012",
+      "resource": {
+        "resourceType": "Slot",
+        "id": "slot-012",
+        "schedule": {
+          "reference": "Schedule/schedule-003"
+        },
+        "status": "free",
+        "start": "2026-05-05T14:00:00+08:00",
+        "end": "2026-05-05T14:15:00+08:00"
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Slot/slot-012"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:slot-013",
+      "resource": {
+        "resourceType": "Slot",
+        "id": "slot-013",
+        "schedule": {
+          "reference": "Schedule/schedule-003"
+        },
+        "status": "free",
+        "start": "2026-05-06T09:30:00+08:00",
+        "end": "2026-05-06T09:45:00+08:00"
+      },
+      "request": {
+        "method": "PUT",
+        "url": "Slot/slot-013"
+      }
+    }
+  ]
+}
