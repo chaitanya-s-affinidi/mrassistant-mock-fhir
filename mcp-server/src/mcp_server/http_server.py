@@ -45,14 +45,14 @@ register_appointment_tools(mcp)
 
 # Tool registry for direct invocation
 TOOLS = {}
-for tool in mcp._tools.values():
+for tool in mcp._tool_manager._tools.values():
     TOOLS[tool.name] = tool.fn
 
 
 def get_tool_schemas() -> list[dict]:
     """Get JSON schemas for all registered tools."""
     schemas = []
-    for tool in mcp._tools.values():
+    for tool in mcp._tool_manager._tools.values():
         schema = {
             "name": tool.name,
             "description": tool.fn.__doc__ or "",

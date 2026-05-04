@@ -22,8 +22,24 @@ def register_patient_tools(mcp: FastMCP):
         client = get_fhir_client()
         
         try:
-            # Search by name and birthdate
-            bundle = client.search("Patient", name=name, birthdate=birth_date)
+            # Split name parts - FHIR requires separate name params for multi-word names
+            name_parts = name.strip().split()
+            
+            # Build search params with list of name values for proper FHIR search
+            params = [("birthdate", birth_date)]
+            for part in name_parts:
+                params.append(("name", part))
+            
+            # Use raw httpx to support multiple name parameters
+            import httpx
+            response = httpx.get(
+                f"{client.base_url}/Patient",
+                params=params,
+                headers={"Content-Type": "application/fhir+json"},
+                timeout=30.0,
+            )
+            response.raise_for_status()
+            bundle = response.json()
             
             entries = bundle.get("entry", [])
             if not entries:

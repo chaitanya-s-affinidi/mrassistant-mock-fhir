@@ -42,7 +42,7 @@ def test_search_patients():
     
     # Get the tool function
     search_fn = None
-    for tool in mcp._tools.values():
+    for tool in mcp._tool_manager._tools.values():
         if tool.name == "search_patients":
             search_fn = tool.fn
             break
@@ -69,7 +69,7 @@ def test_create_patient():
     register_patient_tools(mcp)
     
     create_fn = None
-    for tool in mcp._tools.values():
+    for tool in mcp._tool_manager._tools.values():
         if tool.name == "create_patient":
             create_fn = tool.fn
             break
@@ -94,7 +94,7 @@ def test_list_practitioners():
     register_practitioner_tools(mcp)
     
     list_fn = None
-    for tool in mcp._tools.values():
+    for tool in mcp._tool_manager._tools.values():
         if tool.name == "list_practitioners_by_specialty":
             list_fn = tool.fn
             break
@@ -124,7 +124,7 @@ def test_get_slots():
     register_slot_tools(mcp)
     
     get_fn = None
-    for tool in mcp._tools.values():
+    for tool in mcp._tool_manager._tools.values():
         if tool.name == "get_available_slots":
             get_fn = tool.fn
             break
@@ -148,7 +148,7 @@ def test_create_appointment():
     register_appointment_tools(mcp)
     
     create_fn = None
-    for tool in mcp._tools.values():
+    for tool in mcp._tool_manager._tools.values():
         if tool.name == "create_appointment":
             create_fn = tool.fn
             break
