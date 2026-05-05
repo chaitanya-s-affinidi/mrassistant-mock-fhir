@@ -177,12 +177,12 @@ This document defines the JSON schemas for all MCP tools exposed by the Hospital
         "type": "string",
         "description": "Practitioner ID returned from list_practitioners_by_specialty"
       },
-      "date_timestamp": {
-        "type": "integer",
-        "description": "Unix timestamp representing the desired date (any time on that day)"
+      "date_option": {
+        "type": "string",
+        "description": "One of: 'today', 'tomorrow', or a specific date in YYYY-MM-DD format (e.g., '2026-05-07')"
       }
     },
-    "required": ["practitioner_id", "date_timestamp"]
+    "required": ["practitioner_id", "date_option"]
   }
 }
 ```
@@ -192,36 +192,27 @@ This document defines the JSON schemas for all MCP tools exposed by the Hospital
 ```json
 {
   "date": "2026-05-05",
-  "date_display": "Monday, May 5th 2026",
-  "practitioner_id": "practitioner-001",
-  "practitioner_name": "Dr. Tan Wei Ming",
+  "date_display": "Monday, May 05 2026",
+  "date_option_used": "today",
+  "practitioner_id": "practitioner-003",
+  "practitioner_name": "Dr. Lee Kai Wen",
   "timezone": "Asia/Singapore",
-  "slots": [
+  "available_slots": [
     {
-      "slot_id": "slot-001",
-      "start_time": "09:00",
-      "end_time": "09:15",
-      "start_timestamp": 1746406800
+      "slot_id": "slot-011",
+      "start_time": "11:00",
+      "end_time": "11:15",
+      "display": "11:00 AM - 11:15 AM"
     },
     {
-      "slot_id": "slot-002",
-      "start_time": "09:15",
-      "end_time": "09:30",
-      "start_timestamp": 1746407700
-    },
-    {
-      "slot_id": "slot-003",
-      "start_time": "10:00",
-      "end_time": "10:15",
-      "start_timestamp": 1746410400
-    },
-    {
-      "slot_id": "slot-004",
+      "slot_id": "slot-012",
       "start_time": "14:00",
       "end_time": "14:15",
-      "start_timestamp": 1746424800
+      "display": "02:00 PM - 02:15 PM"
     }
-  ]
+  ],
+  "slot_count": 2,
+  "message": "Found 2 available slot(s). Please choose one."
 }
 ```
 
@@ -229,13 +220,29 @@ This document defines the JSON schemas for all MCP tools exposed by the Hospital
 
 ```json
 {
-  "date": "2026-05-05",
-  "date_display": "Monday, May 5th 2026",
-  "practitioner_id": "practitioner-001",
-  "practitioner_name": "Dr. Tan Wei Ming",
+  "date": "2026-05-11",
+  "date_display": "Sunday, May 11 2026",
+  "date_option_used": "2026-05-11",
+  "practitioner_id": "practitioner-003",
+  "practitioner_name": "Dr. Lee Kai Wen",
   "timezone": "Asia/Singapore",
-  "slots": [],
-  "message": "No available slots on this date. Please try a different date."
+  "available_slots": [],
+  "slot_count": 0,
+  "message": "No available slots on this date.",
+  "suggested_dates": [
+    {"option": "tomorrow", "date": "2026-05-06", "display": "Tuesday, May 06"},
+    {"option": "2026-05-07", "date": "2026-05-07", "display": "Wednesday, May 07"}
+  ]
+}
+```
+
+### Response (Invalid Date Format)
+
+```json
+{
+  "error": "invalid_date",
+  "message": "Invalid date format: 'next week'. Use 'today', 'tomorrow', or YYYY-MM-DD format (e.g., '2026-05-07').",
+  "valid_options": ["today", "tomorrow", "YYYY-MM-DD (e.g., 2026-05-07)"]
 }
 ```
 

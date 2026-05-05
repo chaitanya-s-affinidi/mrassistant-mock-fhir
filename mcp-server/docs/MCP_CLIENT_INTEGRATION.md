@@ -326,16 +326,16 @@ patient = client.call_tool("search_patients", {
     "birth_date": "1985-03-15"
 })
 
-# Get slots
+# Get slots - use "today", "tomorrow", or "YYYY-MM-DD"
 slots = client.call_tool("get_available_slots", {
     "practitioner_id": "practitioner-001",
-    "date_timestamp": 1746374400
+    "date_option": "tomorrow"
 })
 
 # Book appointment
 appointment = client.call_tool("create_appointment", {
     "patient_id": patient["patient_id"],
-    "slot_id": slots["slots"][0]["slot_id"],
+    "slot_id": slots["available_slots"][0]["slot_id"],
     "reason": "Annual checkup"
 })
 ```
@@ -357,7 +357,7 @@ Store these in Mr Assistant workflow variables:
 | `{{specialty}}` | Prompt engineering | list_practitioners_by_specialty |
 | `{{practitioner_id}}` | list_practitioners result | get_available_slots |
 | `{{practitioner_name}}` | list_practitioners result | Confirmation message |
-| `{{preferred_date}}` | User input (as timestamp) | get_available_slots |
+| `{{date_option}}` | User input ("today", "tomorrow", or YYYY-MM-DD) | get_available_slots |
 | `{{slot_id}}` | get_available_slots result | create_appointment |
 
 ### Workflow Node Actions
@@ -384,8 +384,8 @@ Proceed to Node 3
 
 **Node 3: Get Slots**
 ```
-Action: Call get_available_slots(practitioner_id={{practitioner_id}}, date_timestamp={{preferred_date}})
-Present slots to user
+Action: Call get_available_slots(practitioner_id={{practitioner_id}}, date_option={{date_option}})
+Present available_slots to user (each slot has display like "11:00 AM - 11:15 AM")
 Store selected {{slot_id}}
 ```
 

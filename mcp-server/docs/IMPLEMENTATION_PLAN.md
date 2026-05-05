@@ -106,7 +106,7 @@ hospital-fhir-mcp/
 | `search_patients` | name, birth_date | patient_id or not found | `GET /Patient?name=&birthdate=` |
 | `create_patient` | name, birth_date, phone | patient_id | `POST /Patient` |
 | `list_practitioners_by_specialty` | specialty | practitioners[] | `GET /PractitionerRole?specialty=` |
-| `get_available_slots` | practitioner_id, date_timestamp | slots[] | `GET /Slot?schedule.actor=&status=free` |
+| `get_available_slots` | practitioner_id, date_option | available_slots[] | `GET /Slot?schedule.actor=&status=free` |
 | `create_appointment` | patient_id, slot_id, reason? | appointment_id | `POST /Appointment` |
 | `update_appointment` | appointment_id, new_slot_id | success | `PUT /Appointment/{id}` |
 
