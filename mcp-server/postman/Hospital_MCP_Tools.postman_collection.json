@@ -1,0 +1,522 @@
+{
+	"info": {
+		"_postman_id": "hospital-mcp-tools-collection",
+		"name": "Hospital MCP Tools",
+		"description": "MCP tool calls for the Hospital FHIR appointment booking system.\n\nBase URL: http://localhost:3000/mcp\n\nAll requests use JSON-RPC 2.0 format with method `tools/call`.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "http://localhost:3000",
+			"type": "string"
+		}
+	],
+	"item": [
+		{
+			"name": "Patient Tools",
+			"item": [
+				{
+					"name": "Search Patient",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"jsonrpc\": \"2.0\",\n    \"id\": 1,\n    \"method\": \"tools/call\",\n    \"params\": {\n        \"name\": \"search_patients\",\n        \"arguments\": {\n            \"name\": \"Camila Lopez\",\n            \"birth_date\": \"1985-03-15\"\n        }\n    }\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/mcp",
+							"host": ["{{baseUrl}}"],
+							"path": ["mcp"]
+						},
+						"description": "Search for a patient by name and date of birth.\n\n**Arguments:**\n- `name` (string): Patient's full name (first and last)\n- `birth_date` (string): Date of birth in YYYY-MM-DD format\n\n**Returns:**\n- `found` (boolean): Whether patient was found\n- `patient_id` (string): Patient ID for use in appointments\n- `name`, `birth_date`, `phone`: Patient details"
+					}
+				},
+				{
+					"name": "Search Patient - Not Found",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"jsonrpc\": \"2.0\",\n    \"id\": 1,\n    \"method\": \"tools/call\",\n    \"params\": {\n        \"name\": \"search_patients\",\n        \"arguments\": {\n            \"name\": \"John Doe\",\n            \"birth_date\": \"1990-01-01\"\n        }\n    }\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/mcp",
+							"host": ["{{baseUrl}}"],
+							"path": ["mcp"]
+						},
+						"description": "Example of searching for a patient that doesn't exist."
+					}
+				},
+				{
+					"name": "Create Patient",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"jsonrpc\": \"2.0\",\n    \"id\": 1,\n    \"method\": \"tools/call\",\n    \"params\": {\n        \"name\": \"create_patient\",\n        \"arguments\": {\n            \"name\": \"John Doe\",\n            \"birth_date\": \"1990-06-15\",\n            \"phone\": \"+6598765432\"\n        }\n    }\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/mcp",
+							"host": ["{{baseUrl}}"],
+							"path": ["mcp"]
+						},
+						"description": "Create a new patient record.\n\n**Arguments:**\n- `name` (string): Patient's full name (first and last)\n- `birth_date` (string): Date of birth in YYYY-MM-DD format\n- `phone` (string): Phone number with country code (e.g., +6591234567)\n\n**Returns:**\n- `success` (boolean): Whether creation succeeded\n- `patient_id` (string): New patient ID for use in appointments"
+					}
+				}
+			]
+		},
+		{
+			"name": "Practitioner Tools",
+			"item": [
+				{
+					"name": "List Practitioners - General Medicine",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"jsonrpc\": \"2.0\",\n    \"id\": 1,\n    \"method\": \"tools/call\",\n    \"params\": {\n        \"name\": \"list_practitioners_by_specialty\",\n        \"arguments\": {\n            \"specialty\": \"general-medicine\"\n        }\n    }\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/mcp",
+							"host": ["{{baseUrl}}"],
+							"path": ["mcp"]
+						},
+						"description": "List practitioners for General Medicine.\n\n**Arguments:**\n- `specialty` (string): One of: general-medicine, cardiology, dermatology, obgyn, orthopedics\n\n**Returns:**\n- `practitioners` (array): List of practitioners with `practitioner_id`, `name`, `specialty`"
+					}
+				},
+				{
+					"name": "List Practitioners - Cardiology",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"jsonrpc\": \"2.0\",\n    \"id\": 1,\n    \"method\": \"tools/call\",\n    \"params\": {\n        \"name\": \"list_practitioners_by_specialty\",\n        \"arguments\": {\n            \"specialty\": \"cardiology\"\n        }\n    }\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/mcp",
+							"host": ["{{baseUrl}}"],
+							"path": ["mcp"]
+						},
+						"description": "List practitioners for Cardiology (Dr. Lim Mei Ling)."
+					}
+				},
+				{
+					"name": "List Practitioners - Dermatology",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"jsonrpc\": \"2.0\",\n    \"id\": 1,\n    \"method\": \"tools/call\",\n    \"params\": {\n        \"name\": \"list_practitioners_by_specialty\",\n        \"arguments\": {\n            \"specialty\": \"dermatology\"\n        }\n    }\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/mcp",
+							"host": ["{{baseUrl}}"],
+							"path": ["mcp"]
+						},
+						"description": "List practitioners for Dermatology (Dr. Lee Kai Wen)."
+					}
+				},
+				{
+					"name": "List Practitioners - Invalid Specialty",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"jsonrpc\": \"2.0\",\n    \"id\": 1,\n    \"method\": \"tools/call\",\n    \"params\": {\n        \"name\": \"list_practitioners_by_specialty\",\n        \"arguments\": {\n            \"specialty\": \"neurology\"\n        }\n    }\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/mcp",
+							"host": ["{{baseUrl}}"],
+							"path": ["mcp"]
+						},
+						"description": "Example of invalid specialty code - returns error with valid options."
+					}
+				}
+			]
+		},
+		{
+			"name": "Slot Tools",
+			"item": [
+				{
+					"name": "Get Available Slots - Today",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"jsonrpc\": \"2.0\",\n    \"id\": 1,\n    \"method\": \"tools/call\",\n    \"params\": {\n        \"name\": \"get_available_slots\",\n        \"arguments\": {\n            \"practitioner_id\": \"practitioner-003\",\n            \"date_option\": \"today\"\n        }\n    }\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/mcp",
+							"host": ["{{baseUrl}}"],
+							"path": ["mcp"]
+						},
+						"description": "Get available slots for Dr. Lee (Dermatology) for today.\n\n**Arguments:**\n- `practitioner_id` (string): Practitioner ID from list_practitioners_by_specialty\n- `date_option` (string): One of: \"today\", \"tomorrow\", or YYYY-MM-DD format\n\n**Returns:**\n- `available_slots` (array): List with `slot_id`, `start_time`, `end_time`, `display`\n- `slot_count` (number): Number of available slots"
+					}
+				},
+				{
+					"name": "Get Available Slots - Tomorrow",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"jsonrpc\": \"2.0\",\n    \"id\": 1,\n    \"method\": \"tools/call\",\n    \"params\": {\n        \"name\": \"get_available_slots\",\n        \"arguments\": {\n            \"practitioner_id\": \"practitioner-003\",\n            \"date_option\": \"tomorrow\"\n        }\n    }\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/mcp",
+							"host": ["{{baseUrl}}"],
+							"path": ["mcp"]
+						},
+						"description": "Get available slots for Dr. Lee (Dermatology) for tomorrow."
+					}
+				},
+				{
+					"name": "Get Available Slots - Specific Date",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"jsonrpc\": \"2.0\",\n    \"id\": 1,\n    \"method\": \"tools/call\",\n    \"params\": {\n        \"name\": \"get_available_slots\",\n        \"arguments\": {\n            \"practitioner_id\": \"practitioner-003\",\n            \"date_option\": \"2026-05-07\"\n        }\n    }\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/mcp",
+							"host": ["{{baseUrl}}"],
+							"path": ["mcp"]
+						},
+						"description": "Get available slots for Dr. Lee for a specific date (May 7, 2026)."
+					}
+				},
+				{
+					"name": "Get Available Slots - Dr. Tan (General Medicine)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"jsonrpc\": \"2.0\",\n    \"id\": 1,\n    \"method\": \"tools/call\",\n    \"params\": {\n        \"name\": \"get_available_slots\",\n        \"arguments\": {\n            \"practitioner_id\": \"practitioner-001\",\n            \"date_option\": \"today\"\n        }\n    }\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/mcp",
+							"host": ["{{baseUrl}}"],
+							"path": ["mcp"]
+						},
+						"description": "Get available slots for Dr. Tan (General Medicine) for today."
+					}
+				},
+				{
+					"name": "Get Available Slots - Dr. Lim (Cardiology)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"jsonrpc\": \"2.0\",\n    \"id\": 1,\n    \"method\": \"tools/call\",\n    \"params\": {\n        \"name\": \"get_available_slots\",\n        \"arguments\": {\n            \"practitioner_id\": \"practitioner-002\",\n            \"date_option\": \"today\"\n        }\n    }\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/mcp",
+							"host": ["{{baseUrl}}"],
+							"path": ["mcp"]
+						},
+						"description": "Get available slots for Dr. Lim (Cardiology) for today."
+					}
+				},
+				{
+					"name": "Get Available Slots - Invalid Date",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"jsonrpc\": \"2.0\",\n    \"id\": 1,\n    \"method\": \"tools/call\",\n    \"params\": {\n        \"name\": \"get_available_slots\",\n        \"arguments\": {\n            \"practitioner_id\": \"practitioner-003\",\n            \"date_option\": \"next week\"\n        }\n    }\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/mcp",
+							"host": ["{{baseUrl}}"],
+							"path": ["mcp"]
+						},
+						"description": "Example of invalid date format - returns error with valid options."
+					}
+				}
+			]
+		},
+		{
+			"name": "Appointment Tools",
+			"item": [
+				{
+					"name": "Create Appointment",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"jsonrpc\": \"2.0\",\n    \"id\": 1,\n    \"method\": \"tools/call\",\n    \"params\": {\n        \"name\": \"create_appointment\",\n        \"arguments\": {\n            \"patient_id\": \"patient-001\",\n            \"slot_id\": \"slot-011\",\n            \"reason\": \"Skin rash consultation\"\n        }\n    }\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/mcp",
+							"host": ["{{baseUrl}}"],
+							"path": ["mcp"]
+						},
+						"description": "Create an appointment for a patient.\n\n**Arguments:**\n- `patient_id` (string): Patient ID from search_patients or create_patient\n- `slot_id` (string): Slot ID from get_available_slots\n- `reason` (string, optional): Reason for the appointment\n\n**Returns:**\n- `success` (boolean): Whether booking succeeded\n- `appointment_id` (string): Appointment ID for future reference\n- `date`, `time`: Appointment details"
+					}
+				},
+				{
+					"name": "Create Appointment - Without Reason",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"jsonrpc\": \"2.0\",\n    \"id\": 1,\n    \"method\": \"tools/call\",\n    \"params\": {\n        \"name\": \"create_appointment\",\n        \"arguments\": {\n            \"patient_id\": \"patient-002\",\n            \"slot_id\": \"slot-012\"\n        }\n    }\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/mcp",
+							"host": ["{{baseUrl}}"],
+							"path": ["mcp"]
+						},
+						"description": "Create an appointment without specifying a reason (reason is optional)."
+					}
+				},
+				{
+					"name": "Update Appointment (Reschedule)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"jsonrpc\": \"2.0\",\n    \"id\": 1,\n    \"method\": \"tools/call\",\n    \"params\": {\n        \"name\": \"update_appointment\",\n        \"arguments\": {\n            \"appointment_id\": \"{{appointment_id}}\",\n            \"new_slot_id\": \"slot-013\"\n        }\n    }\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/mcp",
+							"host": ["{{baseUrl}}"],
+							"path": ["mcp"]
+						},
+						"description": "Reschedule an existing appointment to a new time slot.\n\n**Arguments:**\n- `appointment_id` (string): Existing appointment ID to reschedule\n- `new_slot_id` (string): New slot ID from get_available_slots\n\n**Returns:**\n- `success` (boolean): Whether reschedule succeeded\n- `old_date`, `old_time`: Previous appointment time\n- `new_date`, `new_time`: New appointment time\n\n**Note:** Replace `{{appointment_id}}` with the actual ID from create_appointment response."
+					}
+				}
+			]
+		},
+		{
+			"name": "MCP Protocol",
+			"item": [
+				{
+					"name": "List Available Tools",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"jsonrpc\": \"2.0\",\n    \"id\": 1,\n    \"method\": \"tools/list\",\n    \"params\": {}\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/mcp",
+							"host": ["{{baseUrl}}"],
+							"path": ["mcp"]
+						},
+						"description": "List all available MCP tools and their schemas.\n\nThis is a standard MCP protocol call to discover available tools."
+					}
+				},
+				{
+					"name": "Health Check",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/health",
+							"host": ["{{baseUrl}}"],
+							"path": ["health"]
+						},
+						"description": "Check if the MCP server is running and FHIR connection is healthy."
+					}
+				}
+			]
+		},
+		{
+			"name": "Complete Booking Flow",
+			"item": [
+				{
+					"name": "Step 1: Search Patient",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"jsonrpc\": \"2.0\",\n    \"id\": 1,\n    \"method\": \"tools/call\",\n    \"params\": {\n        \"name\": \"search_patients\",\n        \"arguments\": {\n            \"name\": \"Camila Lopez\",\n            \"birth_date\": \"1985-03-15\"\n        }\n    }\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/mcp",
+							"host": ["{{baseUrl}}"],
+							"path": ["mcp"]
+						},
+						"description": "Step 1: Search for the patient by name and DOB.\n\nExpected result: patient_id = patient-001"
+					}
+				},
+				{
+					"name": "Step 2: List Dermatology Practitioners",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"jsonrpc\": \"2.0\",\n    \"id\": 1,\n    \"method\": \"tools/call\",\n    \"params\": {\n        \"name\": \"list_practitioners_by_specialty\",\n        \"arguments\": {\n            \"specialty\": \"dermatology\"\n        }\n    }\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/mcp",
+							"host": ["{{baseUrl}}"],
+							"path": ["mcp"]
+						},
+						"description": "Step 2: Find a dermatologist.\n\nExpected result: Dr. Lee Kai Wen (practitioner-003)"
+					}
+				},
+				{
+					"name": "Step 3: Get Tomorrow's Slots",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"jsonrpc\": \"2.0\",\n    \"id\": 1,\n    \"method\": \"tools/call\",\n    \"params\": {\n        \"name\": \"get_available_slots\",\n        \"arguments\": {\n            \"practitioner_id\": \"practitioner-003\",\n            \"date_option\": \"tomorrow\"\n        }\n    }\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/mcp",
+							"host": ["{{baseUrl}}"],
+							"path": ["mcp"]
+						},
+						"description": "Step 3: Get Dr. Lee's available slots for tomorrow.\n\nExpected result: Multiple slots (slot-013 through slot-017 for May 6)"
+					}
+				},
+				{
+					"name": "Step 4: Book Appointment",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"jsonrpc\": \"2.0\",\n    \"id\": 1,\n    \"method\": \"tools/call\",\n    \"params\": {\n        \"name\": \"create_appointment\",\n        \"arguments\": {\n            \"patient_id\": \"patient-001\",\n            \"slot_id\": \"slot-013\",\n            \"reason\": \"Skin rash consultation\"\n        }\n    }\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/mcp",
+							"host": ["{{baseUrl}}"],
+							"path": ["mcp"]
+						},
+						"description": "Step 4: Book the appointment with Dr. Lee.\n\nExpected result: appointment_id and confirmation details"
+					}
+				}
+			]
+		}
+	]
+}

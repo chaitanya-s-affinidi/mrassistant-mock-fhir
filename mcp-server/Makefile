@@ -1,12 +1,12 @@
-.PHONY: help install dev-up dev-down fhir-up fhir-down fhir-logs load-data run http-server ngrok-up test test-tools test-mcp test-http test-curl inspect clean
+.PHONY: help install dev-up dev-down mcp-down fhir-up fhir-down fhir-logs load-data run http-server ngrok-up test test-tools test-mcp test-http test-curl inspect clean
 
 # Default target
 help:
 	@echo "Hospital FHIR MCP Server"
 	@echo ""
 	@echo "Development:"
-	@echo "  make dev-up      Start HAPI FHIR, load mock data"
-	@echo "  make dev-down    Stop all services"
+	@echo "  make dev-up      Start HAPI FHIR + MCP server, load mock data"
+	@echo "  make dev-down    Stop all services (FHIR + MCP)"
 	@echo "  make run         Run MCP server (stdio mode)"
 	@echo ""
 	@echo "HTTP Mode (for public deployment):"
@@ -40,14 +40,40 @@ dev-up: fhir-up
 	@$(MAKE) wait-for-fhir
 	@$(MAKE) load-data
 	@echo ""
+	@echo "Starting MCP HTTP server on port 3000..."
+	@nohup uv run python -m mcp_server.http_server > mcp-server.log 2>&1 & echo $$! > .mcp-server.pid
+	@sleep 2
+	@if curl -sf http://localhost:3000/health > /dev/null 2>&1; then \
+		echo "✓ MCP server is running (PID: $$(cat .mcp-server.pid))"; \
+	else \
+		echo "⚠ MCP server may still be starting. Check: tail -f mcp-server.log"; \
+	fi
+	@echo ""
 	@echo "✓ Development environment ready!"
 	@echo ""
-	@echo "Run MCP server with: make run"
-	@echo "Or in one command:   uv run mcp-server"
+	@echo "FHIR Server: http://localhost:8080/fhir"
+	@echo "MCP Server:  http://localhost:3000/mcp"
+	@echo ""
+	@echo "Logs: tail -f mcp-server.log"
 
 # Stop everything
-dev-down: fhir-down
+dev-down: mcp-down fhir-down
 	@echo "✓ Development environment stopped"
+
+# Stop MCP server
+mcp-down:
+	@if [ -f .mcp-server.pid ]; then \
+		PID=$$(cat .mcp-server.pid); \
+		if kill -0 $$PID 2>/dev/null; then \
+			kill $$PID && echo "✓ MCP server stopped (PID: $$PID)"; \
+		else \
+			echo "MCP server not running"; \
+		fi; \
+		rm -f .mcp-server.pid; \
+	else \
+		@# Try to kill by port as fallback
+		lsof -ti:3000 | xargs -r kill 2>/dev/null || true; \
+	fi
 
 # HAPI FHIR commands
 fhir-up:
