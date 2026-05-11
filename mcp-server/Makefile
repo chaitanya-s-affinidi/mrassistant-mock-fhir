@@ -38,7 +38,6 @@ dev-up: fhir-up
 	@echo "Waiting for HAPI FHIR to start..."
 	@sleep 10
 	@$(MAKE) wait-for-fhir
-	@$(MAKE) load-data
 	@echo ""
 	@echo "Starting MCP HTTP server on port 3000..."
 	@nohup uv run python -m mcp_server.http_server > mcp-server.log 2>&1 & echo $$! > .mcp-server.pid
